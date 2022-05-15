@@ -26,6 +26,7 @@ public class UIController : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("StartGame BTN");
+        startUI.SetActive(false);
     }
 
     public void OpenSettings()
