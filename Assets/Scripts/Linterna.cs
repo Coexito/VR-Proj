@@ -16,6 +16,8 @@ public class Linterna : MonoBehaviour
 
     [SerializeField] Transform rayOrigin;
 
+
+
     bool recharging;
 
     private void Awake()
@@ -48,16 +50,21 @@ public class Linterna : MonoBehaviour
 
     private void Update()
     {
-        
-        if (isON && currentPower >0 && !recharging)
+        if(!isON && recharging)
+        {
+            input.Enable();
+
+        }
+        if (isON && currentPower >0)
         {
             currentPower = Mathf.Clamp(currentPower-Time.deltaTime, 0, maxPower);
 
             if(currentPower == 0)
             {
+                input.Disable();
                 isON = false;
                 recharging = true;
-
+                
                 return;
             }
             CastRays();
@@ -77,7 +84,7 @@ public class Linterna : MonoBehaviour
         bool hasHit = Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hitInfo);
 
         if (hasHit && hitInfo.collider.gameObject.CompareTag("Entity")){
-            print("Entity found");
+            EntityMovement.instance.EntityFound();
         }
     }
 
@@ -102,4 +109,6 @@ public class Linterna : MonoBehaviour
             isON= false;
         }
     }
+
+    
 }
