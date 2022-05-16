@@ -22,8 +22,14 @@ public class FakeEntity : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        instance = this;
+
         gameObject.SetActive(false);
 
+    }
+
+    private void Start()
+    {
     }
     public void StartFakeEntity()
     {
