@@ -84,6 +84,7 @@ public class Linterna : MonoBehaviour
         bool hasHit = Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hitInfo);
 
         if (hasHit && hitInfo.collider.gameObject.CompareTag("Entity")){
+            EntityMovement.instance.collider.enabled = false;
             EntityMovement.instance.EntityFound();
         }
     }

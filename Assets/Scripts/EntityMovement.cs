@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class EntityMovement : MonoBehaviour
 {
+
+
+    public CapsuleCollider collider;
     public static EntityMovement instance;
 
     public AudioSource usualEntity;
@@ -28,6 +31,7 @@ public class EntityMovement : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
 
@@ -111,12 +115,11 @@ public class EntityMovement : MonoBehaviour
 
     IEnumerator ResetEntity()
     {
-        GetComponent<CapsuleCollider>().enabled = false;
         GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        usualEntity.Play();
 
         yield return new WaitForSeconds(5);
 
-        usualEntity.Play();
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
     }
