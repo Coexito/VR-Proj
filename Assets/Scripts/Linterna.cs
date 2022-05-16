@@ -95,7 +95,7 @@ public class Linterna : MonoBehaviour
 
         var val = ctx.ReadValue<float>();
 
-        print(val);
+        //print(val);
 
         if(val > 0.5f && !isON)
         {

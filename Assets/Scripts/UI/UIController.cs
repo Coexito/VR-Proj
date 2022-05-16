@@ -16,6 +16,11 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
 
+    private void Start() 
+    {
+        startUI.SetActive(true);
+        settingsUI.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
