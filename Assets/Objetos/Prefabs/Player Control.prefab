@@ -767,7 +767,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1546,7 +1546,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -2175,6 +2175,7 @@ MonoBehaviour:
   OFF: {fileID: 5134718934844377744}
   maxPower: 5
   currentPower: 5
+  batterySliderUI: {fileID: 0}
   rayOrigin: {fileID: 1571880600}
 --- !u!1 &8778730563902736309
 GameObject:

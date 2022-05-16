@@ -6,18 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class FakeEntity : MonoBehaviour
 {
-
+    public static FakeEntity instance;
     public AudioSource fakeEntity;
-    
     public Transform place;
-    
-    public float movementTime = 0.5f;
-
+    [SerializeField] private float movementTime = 2f;
     Animator animator;
 
-    public static FakeEntity instance;
-
-
+    [SerializeField] private GameObject player;
 
     private void Awake()
     {
@@ -28,11 +23,9 @@ public class FakeEntity : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-    }
     public void StartFakeEntity()
     {
+        transform.position = player.transform.position + (player.transform.forward*2);
         gameObject.SetActive(true);
         fakeEntity.Play();
         Move(place);
