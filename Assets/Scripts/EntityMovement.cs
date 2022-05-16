@@ -9,6 +9,7 @@ public class EntityMovement : MonoBehaviour
 
 
     public CapsuleCollider collider;
+    private SkinnedMeshRenderer render;
     public static EntityMovement instance;
 
     public AudioSource usualEntity;
@@ -28,11 +29,15 @@ public class EntityMovement : MonoBehaviour
 
     Animator animator;
 
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
+        render = GetComponentInChildren<SkinnedMeshRenderer>();
     }
+
 
 
     void Start()
@@ -42,15 +47,19 @@ public class EntityMovement : MonoBehaviour
         instance = this;
     }
 
+
+
     public void StartGame()
     {
         gameObject.SetActive(true);
         InvokeRepeating("MovePos", startTime, movementIteration);
     }
+
+
+
     void MovePos()
     {
         bool moveTransition = Random.value > 0.7f;
-
 
         if (!moveTransition)
         {
@@ -60,9 +69,8 @@ public class EntityMovement : MonoBehaviour
         {
             Move(places);
         }
-
-
     }
+
 
 
     private void Move(Transform[] p)
@@ -90,6 +98,8 @@ public class EntityMovement : MonoBehaviour
         });
     }
 
+
+
     private void Teleport(Transform[] p)
     {
         posNum = Random.Range(0, places.Length);
@@ -98,6 +108,8 @@ public class EntityMovement : MonoBehaviour
         transform.LookAt(Vector3.zero);
 
     }
+
+
 
     public void EntityFound()
     {
@@ -113,15 +125,17 @@ public class EntityMovement : MonoBehaviour
 
     }
 
+
+
     IEnumerator ResetEntity()
     {
-        GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        render.enabled = false;
         usualEntity.Play();
 
         yield return new WaitForSeconds(5);
 
-        GetComponent<CapsuleCollider>().enabled = true;
-        GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        collider.enabled = true;
+        render.enabled = true;
     }
     
 }

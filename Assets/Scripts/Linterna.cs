@@ -18,8 +18,6 @@ public class Linterna : MonoBehaviour
 
     [SerializeField] Transform rayOrigin;
 
-
-
     bool recharging;
 
     private void Awake()
@@ -28,6 +26,7 @@ public class Linterna : MonoBehaviour
 
         input.XRIRightHandInteraction.ActivateValue.performed += TorchOn;
         input.XRIRightHandInteraction.ActivateValue.canceled += TorchOn;
+
     }
 
     private void OnEnable()
@@ -111,6 +110,8 @@ public class Linterna : MonoBehaviour
 
         if(val > 0.5f && !isON)
         {
+
+            FakeEntity.instance.StartFakeEntity();
             ON.SetActive(true);
             OFF.SetActive(false);
             isON = true;
