@@ -1,12 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Linterna : MonoBehaviour
 {
     public GameObject ON;
     public GameObject OFF;
     private bool isON;
+
+    [SerializeField] float maxPower;
+    [SerializeField] float currentPower;
+
+    XRIDefaultInputActions input;
+
+    [SerializeField] Transform rayOrigin;
+
+    bool recharging;
+
+    private void Awake()
+    {
+        input = new XRIDefaultInputActions();
+
+        input.XRIRightHandInteraction.ActivateValue.performed += TorchOn;
+        input.XRIRightHandInteraction.ActivateValue.canceled += TorchOn;
+    }
+
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,26 +45,61 @@ public class Linterna : MonoBehaviour
         isON = false;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isON)
-            {
-                ON.SetActive(false);
-                OFF.SetActive(true);
-            }
-
-            if (!isON)
-            {
-                ON.SetActive(true);
-                OFF.SetActive(false);
-            }
-
-            isON = !isON;
-
-        }
         
+        if (isON && currentPower >0 && !recharging)
+        {
+            currentPower = Mathf.Clamp(currentPower-Time.deltaTime, 0, maxPower);
+
+            if(currentPower == 0)
+            {
+                isON = false;
+                recharging = true;
+
+                return;
+            }
+            CastRays();
+        }
+        else
+        {
+            currentPower = Mathf.Clamp(currentPower + Time.deltaTime, 0, maxPower);
+
+            if(recharging && currentPower == maxPower) recharging = false;
+        }
+    }
+
+    void CastRays()
+    {
+        RaycastHit hitInfo;
+
+        bool hasHit = Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hitInfo);
+
+        if (hasHit && hitInfo.collider.gameObject.CompareTag("Entity")){
+            print("Entity found");
+        }
+    }
+
+    void TorchOn(InputAction.CallbackContext ctx)
+    {
+        if (recharging) return;
+
+        var val = ctx.ReadValue<float>();
+
+        print(val);
+
+        if(val > 0.5f && !isON)
+        {
+            ON.SetActive(true);
+            OFF.SetActive(false);
+            isON = true;
+        }
+        else if(val <= 0.5f && isON)
+        {
+            ON.SetActive(false);
+            OFF.SetActive(true);
+            isON= false;
+        }
     }
 }

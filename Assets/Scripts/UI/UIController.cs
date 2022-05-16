@@ -56,6 +56,7 @@ public class UIController : MonoBehaviour
 
     public void SetMasterVolume(float sliderValue)
     {
+        Debug.Log("cambiamos el volumeeen!!  " + sliderValue);
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20); 
     }
 
