@@ -123,4 +123,5 @@ public class EntityMovement : MonoBehaviour
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
     }
+    
 }
