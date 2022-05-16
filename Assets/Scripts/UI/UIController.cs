@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -9,7 +10,12 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private GameObject startUI;
     [SerializeField] private GameObject settingsUI;
+    [SerializeField] private Slider sliderMaster;
+    [SerializeField] private Slider sliderSoundEffects;
+    [SerializeField] private Slider sliderMusic;
+
     [SerializeField] private AudioMixer audioMixer;
+
 
     // Update is called once per frame
     void Update()
@@ -18,8 +24,7 @@ public class UIController : MonoBehaviour
         if (playerCamera != null)
         {
             this.gameObject.transform.LookAt(transform.position + playerCamera.transform.rotation * Vector3.forward, playerCamera.transform.rotation * Vector3.up);
-        }
-            
+        }   
     }
 
     #region Start UI
@@ -54,19 +59,19 @@ public class UIController : MonoBehaviour
     // It's important to convert the slider value to logarithmic scale
     // That's why the slider value is   log10(value) * 20
 
-    public void SetMasterVolume(float sliderValue)
+    public void SetMasterVolume()
     {
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20); 
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(sliderMaster.value) * 20); 
     }
 
     public void SetSoundEffectsVolume(float sliderValue)
     {
-        audioMixer.SetFloat("SoundEffectsVolume", Mathf.Log10(sliderValue) * 20); 
+        audioMixer.SetFloat("SoundEffectsVolume", Mathf.Log10(sliderSoundEffects.value) * 20); 
     }
 
     public void SetMusicVolume(float sliderValue)
     {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20); 
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(sliderMusic.value) * 20); 
     }
 
     #endregion
