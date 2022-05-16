@@ -32,6 +32,7 @@ public class UIController : MonoBehaviour
     {
         Debug.Log("StartGame BTN");
         startUI.SetActive(false);
+        EntityMovement.instance.StartGame();
     }
 
     public void OpenSettings()

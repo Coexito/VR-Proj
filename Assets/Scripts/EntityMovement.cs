@@ -33,12 +33,16 @@ public class EntityMovement : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("MovePos", startTime, movementIteration);
+        gameObject.SetActive(false);
 
         instance = this;
     }
 
-
+    public void StartGame()
+    {
+        gameObject.SetActive(true);
+        InvokeRepeating("MovePos", startTime, movementIteration);
+    }
     void MovePos()
     {
         bool moveTransition = Random.value > 0.7f;
