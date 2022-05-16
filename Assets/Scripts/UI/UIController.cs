@@ -35,21 +35,18 @@ public class UIController : MonoBehaviour
     #region Start UI
     public void StartGame()
     {
-        Debug.Log("StartGame BTN");
         startUI.SetActive(false);
         EntityMovement.instance.StartGame();
     }
 
     public void OpenSettings()
     {
-        Debug.Log("Settings BTN");
         startUI.SetActive(false);
         settingsUI.SetActive(true);
     }
 
     public void ExitGame()
     {
-        Debug.Log("Exit BTN");
         Application.Quit();
     }
 

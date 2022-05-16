@@ -110,8 +110,6 @@ public class Linterna : MonoBehaviour
 
         if(val > 0.5f && !isON)
         {
-
-            FakeEntity.instance.StartFakeEntity();
             ON.SetActive(true);
             OFF.SetActive(false);
             isON = true;
@@ -126,7 +124,6 @@ public class Linterna : MonoBehaviour
 
     IEnumerator ShowBattery()
     {
-        //batterySliderUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(3);
         batterySliderUI.gameObject.SetActive(false);
     }

@@ -24,6 +24,6 @@ public class SceneController : MonoBehaviour
             cameraSpectator.depth = 1;
     }
     
-
+    
 
 }

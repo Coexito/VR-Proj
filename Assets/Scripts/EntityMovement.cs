@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class EntityMovement : MonoBehaviour
 {
-
-
     public CapsuleCollider collider;
     private SkinnedMeshRenderer render;
     public static EntityMovement instance;
@@ -29,6 +27,7 @@ public class EntityMovement : MonoBehaviour
 
     Animator animator;
 
+    [SerializeField] private GameObject player;
 
 
     private void Awake()
@@ -43,7 +42,6 @@ public class EntityMovement : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
-
         instance = this;
     }
 
@@ -96,6 +94,8 @@ public class EntityMovement : MonoBehaviour
             animator.SetBool("isMoving", false);
             transform.DOLookAt(Vector3.zero, 0.2f);
         });
+
+        CheckEntityPosition();
     }
 
 
@@ -107,16 +107,20 @@ public class EntityMovement : MonoBehaviour
         transform.position = newPos;
         transform.LookAt(Vector3.zero);
 
+        CheckEntityPosition();
     }
-
-
 
     public void EntityFound()
     {
         entityHealth -= 1;
         usualEntity.Stop();
         entityHurt.Play();
-        if (entityHealth == 0)
+
+        if(entityHealth == 2) // When two health remaining, launch the fake entities
+        {
+            StartCoroutine(LaunchFakeEntity());
+        }
+        else if (entityHealth == 0)
         {
             SceneManager.LoadScene(1);
         }
@@ -136,6 +140,48 @@ public class EntityMovement : MonoBehaviour
 
         collider.enabled = true;
         render.enabled = true;
+    }
+
+    IEnumerator LaunchFakeEntity()
+    {
+        // Infinite loop spawning fake entities every random seconds
+        while(true)
+        {
+            int random = Random.Range(2, 10);
+            yield return new WaitForSeconds((int)random);
+            FakeEntity.instance.StartFakeEntity();
+        }
+        
+    }
+
+    private void CheckEntityPosition()
+    {
+        // Calculate the new position in relation to player's position
+        //  and show it in the Spectator's UI
+
+        var transformedPos = player.transform.InverseTransformPoint(transform.position);
+        bool isRight = transformedPos.x > 2;
+        bool isFront = transformedPos.z > 0;
+
+        
+        string pos = "";
+
+        Vector3 toTarget = (transform.position - player.transform.position).normalized;
+
+        // Front or behind
+        if(transformedPos.z > 2)
+            pos += "front ";
+        else if(transformedPos.z < -2)
+            pos += "behind ";
+
+        // Right or left
+        if(transformedPos.x > 2)
+            pos += "to the right";
+        else if(transformedPos.x < -2)
+            pos += "to the left";
+
+        
+        UISpectatorController.instance.SetSpectatorText(pos);
     }
     
 }
