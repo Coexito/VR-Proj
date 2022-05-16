@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Linterna : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class Linterna : MonoBehaviour
 
     [SerializeField] float maxPower;
     [SerializeField] float currentPower;
+    [SerializeField] Slider batterySliderUI;
 
     XRIDefaultInputActions input;
 
@@ -67,6 +67,10 @@ public class Linterna : MonoBehaviour
                 
                 return;
             }
+
+            // Update the HMD UI battery
+            batterySliderUI.value = Mathf.Lerp(0, maxPower, currentPower);
+
             CastRays();
         }
         else
