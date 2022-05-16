@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneController : MonoBehaviour
@@ -8,6 +6,7 @@ public class SceneController : MonoBehaviour
 
     public UISpectatorController spectatorCanvas;
 
+    [SerializeField] private bool testVRinEditor;
     public Camera cameraHMD;
     public Camera cameraSpectator;
     
@@ -21,7 +20,8 @@ public class SceneController : MonoBehaviour
 
         // Change the camera depths so the spectator camera show on pc monitor and HMD on HMD
         cameraHMD.depth = 0;
-        cameraSpectator.depth = 1;
+        if(!testVRinEditor)
+            cameraSpectator.depth = 1;
     }
     
 
