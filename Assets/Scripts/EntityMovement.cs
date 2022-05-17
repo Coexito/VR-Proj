@@ -50,6 +50,12 @@ public class EntityMovement : MonoBehaviour
     public void StartGame()
     {
         gameObject.SetActive(true);
+
+        // Prepare spectator text's
+        UISpectatorController.instance.SetSpectatorHealthText(entityHealth.ToString());
+        UISpectatorController.instance.SetSpectatorPositionText("");
+        UISpectatorController.instance.SetSpectatorFakeEntityText("");
+
         InvokeRepeating("MovePos", startTime, movementIteration);
     }
 
@@ -113,6 +119,7 @@ public class EntityMovement : MonoBehaviour
     public void EntityFound()
     {
         entityHealth -= 1;
+        UISpectatorController.instance.SetSpectatorHealthText(entityHealth.ToString());
         usualEntity.Stop();
         entityHurt.Play();
 
@@ -181,7 +188,7 @@ public class EntityMovement : MonoBehaviour
             pos += "to the left";
 
         
-        UISpectatorController.instance.SetSpectatorText(pos);
+        UISpectatorController.instance.SetSpectatorPositionText(pos);
     }
     
 }

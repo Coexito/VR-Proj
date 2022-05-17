@@ -6,18 +6,32 @@ using TMPro;
 public class UISpectatorController : MonoBehaviour
 {
     public static UISpectatorController instance;
-    [SerializeField] private TextMeshProUGUI topTXT;
+    [SerializeField] private TextMeshProUGUI positionTXT;
+    [SerializeField] private TextMeshProUGUI healthTXT;
+    [SerializeField] private TextMeshProUGUI fakeEntityTXT;
 
     private void Start() 
     {
         instance = this;
     }
 
-    public void SetSpectatorText(string text)
+    public void SetSpectatorPositionText(string text)
     {
         if (text != null)
         {
-            topTXT.SetText(text);
+            positionTXT.SetText(text);
         }
+    }
+
+    public void SetSpectatorHealthText(string text)
+    {
+        if (text != null)
+            healthTXT.SetText($"Health: {text}");
+    }
+
+    public void SetSpectatorFakeEntityText(string text)
+    {
+        if (text != null)
+            fakeEntityTXT.SetText(text);
     }
 }

@@ -16,8 +16,6 @@ public class SceneController : MonoBehaviour
         // Set the Singleton
         instance = this;
 
-        spectatorCanvas.SetSpectatorText("Welcome, spectator.");
-
         // Change the camera depths so the spectator camera show on pc monitor and HMD on HMD
         cameraHMD.depth = 0;
         if(!testVRinEditor)

@@ -25,6 +25,7 @@ public class FakeEntity : MonoBehaviour
 
     public void StartFakeEntity()
     {
+        UISpectatorController.instance.SetSpectatorFakeEntityText("Scream!");
         transform.position = player.transform.position + (player.transform.forward*2);
         gameObject.SetActive(true);
         fakeEntity.Play();
@@ -44,6 +45,7 @@ public class FakeEntity : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
             gameObject.SetActive(false);
+            UISpectatorController.instance.SetSpectatorFakeEntityText("");
         });
     }
 
