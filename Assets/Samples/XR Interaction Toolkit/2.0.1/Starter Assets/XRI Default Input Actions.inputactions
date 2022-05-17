@@ -845,6 +845,17 @@
                 },
                 {
                     "name": "",
+                    "id": "047465ea-4af8-4ae1-b16e-d000c81c2027",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "92bb5b8f-bf48-4dab-af05-50a865773895",
                     "path": "<XRController>{RightHand}/triggerPressed",
                     "interactions": "",
