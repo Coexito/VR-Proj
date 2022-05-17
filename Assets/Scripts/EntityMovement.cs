@@ -165,15 +165,8 @@ public class EntityMovement : MonoBehaviour
     {
         // Calculate the new position in relation to player's position
         //  and show it in the Spectator's UI
-
-        var transformedPos = player.transform.InverseTransformPoint(transform.position);
-        bool isRight = transformedPos.x > 2;
-        bool isFront = transformedPos.z > 0;
-
-        
+        var transformedPos = player.transform.InverseTransformPoint(transform.position);        
         string pos = "";
-
-        Vector3 toTarget = (transform.position - player.transform.position).normalized;
 
         // Front or behind
         if(transformedPos.z > 2)
