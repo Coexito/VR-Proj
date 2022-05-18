@@ -22,6 +22,8 @@ public class EntityFollowing : MonoBehaviour
     void Start()
     {
         instance = this;
+
+        UISpectatorController.instance.SetSpectatorPositionText("The entity is behind. Prepare to scare");
     }
 
     void Update() 
@@ -34,14 +36,18 @@ public class EntityFollowing : MonoBehaviour
         lives--;
         unitsFarApart -= 5;
 
-       
+       UISpectatorController.instance.SetSpectatorHealthText(lives.ToString());
 
         switch(lives)
         {
             default:
                 // Move the entity behind the player, closer each time
-                entityParentGizmo.transform.position = playerForward.transform.position - entityParentGizmo.transform.forward * unitsFarApart;
-
+                Vector3 newEntityPos = new Vector3(playerForward.transform.position.x - entityParentGizmo.transform.forward.x * unitsFarApart,
+                                                    playerForward.transform.position.y,
+                                                    playerForward.transform.position.z - entityParentGizmo.transform.forward.z * unitsFarApart);
+                
+                entityParentGizmo.transform.position = newEntityPos;
+                UISpectatorController.instance.SetSpectatorPositionText($"The entity is getting closer... {unitsFarApart} units apart");
                 // Make a sound
                 audioSourceHurt.Play();
                 break;
@@ -58,8 +64,10 @@ public class EntityFollowing : MonoBehaviour
     {
         //Debug.Log("Game finished");
         
+        UISpectatorController.instance.SetSpectatorPositionText("Prepare the final scream! 3 seconds");
         // Little wait to create tension
         yield return new WaitForSeconds(3);
+        UISpectatorController.instance.SetSpectatorPositionText("SCREAM!!!");
         entityParentGizmo.transform.DOMove(playerForward.transform.position, finalMovementTime);
 
         // final sound
