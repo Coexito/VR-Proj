@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RaycastEntity : MonoBehaviour
 {
     Ray ray;
@@ -22,7 +23,7 @@ public class RaycastEntity : MonoBehaviour
         // If the ray hits in the layer 10 (the entity)
         if(canLookAgain && Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
         {
-            Debug.Log("Entity Hit!");
+            //Debug.Log("Entity Hit!");
             StartCoroutine(LookedAtEntity());
         }
 
