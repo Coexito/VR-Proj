@@ -16,6 +16,7 @@ public class EntityFollowing : MonoBehaviour
     [SerializeField] int lives = 5;
     [SerializeField] AudioSource audioSourceHurt;
     [SerializeField] AudioSource audioSourceFinal;
+    [SerializeField] AudioSource audioSourceMusic;
     
 
     // Start is called before the first frame update
@@ -34,6 +35,10 @@ public class EntityFollowing : MonoBehaviour
     public void LookedAt()
     {
         lives--;
+        if(lives == 4)    //Sergio no me regañes por este if :(
+        {
+            audioSourceMusic.Play();     
+        }
         unitsFarApart -= 5;
 
        UISpectatorController.instance.SetSpectatorHealthText(lives.ToString());
@@ -65,14 +70,15 @@ public class EntityFollowing : MonoBehaviour
         //Debug.Log("Game finished");
         
         UISpectatorController.instance.SetSpectatorPositionText("Prepare the final scream! 3 seconds");
+        audioSourceMusic.Stop();
         // Little wait to create tension
         yield return new WaitForSeconds(3);
         UISpectatorController.instance.SetSpectatorPositionText("SCREAM!!!");
         entityParentGizmo.transform.DOMove(playerForward.transform.position, finalMovementTime);
 
         // final sound
-        //audioSourceFinal.Play();
-        audioSourceHurt.Play();
+        audioSourceFinal.Play();
+        //audioSourceHurt.Play();
 
         // Waits three seconds before finishing the game so the player realizes the entity
         yield return new WaitForSeconds(1.5f);

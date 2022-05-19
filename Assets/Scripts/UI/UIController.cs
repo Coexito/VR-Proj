@@ -16,10 +16,13 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
 
+    private AudioSource backgroundMusic;
+
     private void Start() 
     {
         startUI.SetActive(true);
         settingsUI.SetActive(false);
+        backgroundMusic = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +40,7 @@ public class UIController : MonoBehaviour
     {
         startUI.SetActive(false);
         EntityMovement.instance.StartGame();
+        backgroundMusic.Play();
     }
 
     public void OpenSettings()
