@@ -35,7 +35,7 @@ public class EntityFollowing : MonoBehaviour
     public void LookedAt()
     {
         lives--;
-        if(lives == 4)    //Sergio no me regañes por este if :(
+        if(lives == 4)    //Sergio no me regaï¿½es por este if :(
         {
             audioSourceMusic.Play();     
         }
@@ -71,14 +71,14 @@ public class EntityFollowing : MonoBehaviour
         
         UISpectatorController.instance.SetSpectatorPositionText("Prepare the final scream! 3 seconds");
         audioSourceMusic.Stop();
+
         // Little wait to create tension
         yield return new WaitForSeconds(3);
         UISpectatorController.instance.SetSpectatorPositionText("SCREAM!!!");
-        entityParentGizmo.transform.DOMove(playerForward.transform.position, finalMovementTime);
 
         // final sound
         audioSourceFinal.Play();
-        //audioSourceHurt.Play();
+        entityParentGizmo.transform.DOMove(playerForward.transform.position, finalMovementTime);
 
         // Waits three seconds before finishing the game so the player realizes the entity
         yield return new WaitForSeconds(1.5f);

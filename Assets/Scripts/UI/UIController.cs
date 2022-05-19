@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider sliderMusic;
 
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private AudioMixer audioMixer3D;
 
     private AudioSource backgroundMusic;
 
@@ -69,11 +70,12 @@ public class UIController : MonoBehaviour
     public void SetMasterVolume()
     {
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(sliderMaster.value) * 20); 
+        audioMixer3D.SetFloat("MasterVolume", Mathf.Log10(sliderMaster.value) * 20); 
     }
 
     public void SetSoundEffectsVolume(float sliderValue)
     {
-        audioMixer.SetFloat("SoundEffectsVolume", Mathf.Log10(sliderSoundEffects.value) * 20); 
+        audioMixer3D.SetFloat("SoundEffectsVolume", Mathf.Log10(sliderSoundEffects.value) * 20); 
     }
 
     public void SetMusicVolume(float sliderValue)
