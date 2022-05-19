@@ -129,7 +129,7 @@ public class EntityMovement : MonoBehaviour
         }
         else if (entityHealth == 0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);  // Starts the next scene
         }
 
         StartCoroutine(ResetEntity());
